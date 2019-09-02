@@ -6,6 +6,5 @@ The form recognizer's documentation home is https://azure.microsoft.com/en-in/se
 
 The tool uses ImageMagick to manipulate the images and Newtonsoft.Json to parse the Json file.
 
-*TO-DO*: add support for tables.
 
 *Note: doesn't support PDFs, but should work with any image format supported by ImageMagick/FormRecognizer.*
