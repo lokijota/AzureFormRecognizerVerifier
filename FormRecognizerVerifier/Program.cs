@@ -33,11 +33,13 @@ namespace FormRecognizerVerifier
             IMagickImage outputImage = new MagickImage(imageFilename).Clone();
             int imageHeight = outputImage.Height;
             outputImage.AutoOrient();
+            outputImage.RePage();
 
             string json = File.ReadAllText(formRecognizerOutputJsonFile);
 
             JObject resource = JObject.Parse(json);
 
+            // process key-value pairs: key+value
             foreach(var outputRecord in resource["pages"][0]["keyValuePairs"].Children()) // top-level keys/values -- 3 in my sample JSON file
             {
                 // for each of these there's a key 
@@ -76,6 +78,40 @@ namespace FormRecognizerVerifier
 
                         WriteLabelAndBoundingBox(outputImage, imageHeight, text, bb, valueColour);
                         Console.WriteLine(text);
+                    }
+                }
+            }
+
+            // process tables
+            foreach (var outputTable in resource["pages"][0]["tables"].Children()) // top-level tables
+            {
+                foreach(var column in outputTable["columns"].Children()) // columns in a table
+                {
+                    string header = column["header"][0]["text"].ToString();
+                    double[] bb = new double[8];
+
+                    for (int j = 0; j < 8; j++)
+                    {
+                        bb[j] = Double.Parse(column["header"][0]["boundingBox"][j].ToString());
+                    }
+
+                    WriteLabelAndBoundingBox(outputImage, imageHeight, header, bb, "red");
+                    Console.WriteLine(header);
+
+                    foreach(var entries in column["entries"][0].Children())
+                    {
+                        string entry = entries["text"].ToString();
+
+                        bb = new double[8];
+
+                        for (int j = 0; j < 8; j++)
+                        {
+                            bb[j] = Double.Parse(entries["boundingBox"][j].ToString());
+                        }
+
+                        WriteLabelAndBoundingBox(outputImage, imageHeight, header, bb, "green");
+                        Console.WriteLine(entry);
+
                     }
                 }
             }
