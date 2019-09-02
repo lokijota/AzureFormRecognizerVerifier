@@ -1,12 +1,7 @@
-﻿using System;
-using ImageMagick;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using ImageMagick;
 using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace FormRecognizerVerifier
 {
