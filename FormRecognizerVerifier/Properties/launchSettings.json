@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FormRecognizerVerifier": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\PROJECTOS\\FormRecognizerVerifier\\FormRecognizerVerifier\\bin\\Debug\\netcoreapp2.2\\image.jpg C:\\PROJECTOS\\FormRecognizerVerifier\\FormRecognizerVerifier\\bin\\Debug\\netcoreapp2.2\\output.json"
+    }
+  }
+}
